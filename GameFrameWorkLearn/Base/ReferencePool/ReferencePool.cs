@@ -165,6 +165,168 @@ namespace GameFrameWork
 
             return (IReference)Activator.CreateInstance(referenceType);
         }
+
+        /// <summary>
+        /// 将引用归还引用池
+        /// </summary>
+        /// <typeparam name="T">引用类型</typeparam>
+        /// <param name="reference">引用</param>
+        public static void Release<T>(T reference) where T : class, IReference
+        {
+            if(reference == null)
+            {
+                throw new GameFrameworkException("Reference is invalid");
+            }
+
+            reference.Clear();
+            lock(s_ReferencePool)
+            {
+                GetReferencePool(typeof(T).FullName).Enqueue(reference);
+            }
+        }
+
+        /// <summary>
+        /// 将引用归还引用池
+        /// </summary>
+        /// <param name="referenceType">引用类型</param>
+        /// <param name="reference">引用</param>
+        public static void Release(Type referenceType, IReference reference)
+        {
+            if (referenceType == null)
+            {
+                throw new GameFrameworkException("Reference type is invalid");
+            }
+
+            if (!referenceType.IsClass || referenceType.IsAbstract)
+            {
+                throw new GameFrameworkException("Reference type is not a non-abstrct class type.");
+            }
+
+            if (reference == null)
+            {
+                throw new GameFrameworkException("Reference is invalid");
+            }
+
+            Type type = reference.GetType();
+            if(referenceType != type)
+            {
+                throw new GameFrameworkException(string.Format("Reference type '{0}' not equals to reference's type '{1}'", referenceType.FullName, type.FullName));
+            }
+
+            reference.Clear();
+            lock(s_ReferencePool)
+            {
+                GetReferencePool(referenceType.FullName).Enqueue(reference);
+            }
+        }
+
+        /// <summary>
+        /// 向引用池中追加指定类型的引用
+        /// </summary>
+        /// <typeparam name="T">引用类型</typeparam>
+        /// <param name="count">追加数量</param>
+        public static void Add<T>(int count) where T : class, IReference, new()
+        {
+            lock(s_ReferencePool)
+            {
+                Queue<IReference> referencePool = GetReferencePool(typeof(T).FullName);
+                while(count-- > 0)
+                {
+                    referencePool.Enqueue(new T());
+                }
+            }
+        }
+
+        /// <summary>
+        /// 向引用池中追加指定类型的引用
+        /// </summary>
+        /// <param name="referenceType">引用类型</param>
+        /// <param name="count">追加数量</param>
+        public static void Add(Type referenceType, int count)
+        {
+            if(referenceType == null)
+            {
+                throw new GameFrameworkException("Reference type is invalid");
+            }
+
+            if(!referenceType.IsClass || referenceType.IsAbstract)
+            {
+                throw new GameFrameworkException("Reference type is not a non-abstract class type");
+            }
+
+            if(!typeof(IReference).IsAssignableFrom(referenceType))
+            {
+                throw new GameFrameworkException(string.Format("Reference type '{0}' is invalid", referenceType.FullName));
+            }
+
+            lock(s_ReferencePool)
+            {
+                Queue<IReference> referencePool = GetReferencePool(referenceType.FullName);
+                while(count-- > 0)
+                {
+                    referencePool.Enqueue((IReference)Activator.CreateInstance(referenceType));
+                }
+            }
+        }
+
+        /// <summary>
+        /// 从引用池中移除指定类型的引用
+        /// </summary>
+        /// <typeparam name="T">引用类型</typeparam>
+        /// <param name="count">移除数量</param>
+        public static void Remove<T>(int count) where T : class, IReference
+        {
+            lock(s_ReferencePool)
+            {
+                Queue<IReference> referencePool = GetReferencePool(typeof(T).FullName);
+                if(referencePool.Count < count)
+                {
+                    count = referencePool.Count;
+                }
+
+                while(count-- > 0)
+                {
+                    referencePool.Dequeue();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 从引用池中移除指定类型的引用
+        /// </summary>
+        /// <param name="referenceType">引用类型</param>
+        /// <param name="count">移除数量</param>
+        public static void Remove(Type referenceType, int count)
+        {
+            if(referenceType == null)
+            {
+                throw new GameFrameworkException("Reference type is invalid");
+            }
+
+            if(!referenceType.IsClass || referenceType.IsAbstract)
+            {
+                throw new GameFrameworkException("Reference type is not a non-abstract class type");
+            }
+
+            if(!typeof(IReference).IsAssignableFrom(referenceType))
+            {
+                throw new GameFrameworkException(string.Format("Reference type '{0}' is invalid", referenceType.FullName));
+            }
+
+            lock(s_ReferencePool)
+            {
+                Queue<IReference> referencePool = GetReferencePool(referenceType.FullName);
+                if(referencePool.Count < count)
+                {
+                    count = referencePool.Count;
+                }
+
+                while(count-- > 0)
+                {
+                    referencePool.Dequeue();
+                }
+            }
+        }
         
         private static Queue<IReference> GetReferencePool(string fullName)
         {
