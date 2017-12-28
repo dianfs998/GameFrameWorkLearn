@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 
 namespace GameFrameWork
 {
@@ -77,6 +76,12 @@ namespace GameFrameWork
                 return string.Format("{0}.dat", resourceName);
             }
 
+            /// <summary>
+            /// 获取带有CRC32和后缀的资源名
+            /// </summary>
+            /// <param name="resourceName">原始资源名</param>
+            /// <param name="hashCode">CRC32哈希值</param>
+            /// <returns>带有CRC32和后缀的资源名</returns>
             public static string GetResourceNameWithCrc32AndSuffix(string resourceName, int hashCode)
             {
                 if (string.IsNullOrEmpty(resourceName))
@@ -85,6 +90,54 @@ namespace GameFrameWork
                 }
 
                 return string.Format("{0}.{1:x8}.data", resourceName, hashCode);
+            }
+
+            /// <summary>
+            /// 移除空文件夹
+            /// </summary>
+            /// <param name="directoryName">要处理的文件夹名称</param>
+            /// <returns>是否移除空文件夹成功</returns>
+            public static bool RemoveEmptyDirectory(string directoryName)
+            {
+                if(string.IsNullOrEmpty(directoryName))
+                {
+                    throw new GameFrameworkException("Directory name is invalid");
+                }
+
+                try
+                {
+                    if(!System.IO.Directory.Exists(directoryName))
+                    {
+                        return false;
+                    }
+
+                    string[] subDirectoryNames = System.IO.Directory.GetDirectories(directoryName, "*");
+                    int subDirectoryCount = subDirectoryNames.Length;
+                    foreach(string subDirectoryName in subDirectoryNames)
+                    {
+                        if(RemoveEmptyDirectory(subDirectoryName))
+                        {
+                            subDirectoryCount--;
+                        }
+                    }
+
+                    if(subDirectoryCount > 0)
+                    {
+                        return false;
+                    }
+
+                    if(System.IO.Directory.GetFiles(directoryName, "*").Length > 0)
+                    {
+                        return false;
+                    }
+
+                    System.IO.Directory.Delete(directoryName);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
             }
         }
     }
