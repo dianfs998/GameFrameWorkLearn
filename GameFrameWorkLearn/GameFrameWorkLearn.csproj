@@ -55,6 +55,17 @@
     <Compile Include="Utility\Json.cs" />
     <Compile Include="Utility\Nullable.cs" />
     <Compile Include="Utility\Path.cs" />
+    <Compile Include="Utility\Profiler.IProfilerHelper.cs" />
+    <Compile Include="Utility\Profiler.cs" />
+    <Compile Include="Utility\Random.cs" />
+    <Compile Include="Utility\Text.cs" />
+    <Compile Include="Utility\Utility.cs" />
+    <Compile Include="Utility\Verifier.cs" />
+    <Compile Include="Utility\Zip.cs" />
+    <Compile Include="Utility\Zip.IZipHelper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Utility\Verifier.Crc32.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

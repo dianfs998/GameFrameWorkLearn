@@ -1,0 +1,6 @@
+F:\GitHub\GameFrameWorkLearn\GameFrameWorkLearn\obj\Debug\GameFrameWorkLearn.csprojResolveAssemblyReference.cache
+F:\GitHub\GameFrameWorkLearn\GameFrameWorkLearn\obj\Debug\GameFrameWorkLearn.csproj.CoreCompileInputs.cache
+F:\GitHub\GameFrameWorkLearn\GameFrameWorkLearn\bin\Debug\GameFrameWorkLearn.dll
+F:\GitHub\GameFrameWorkLearn\GameFrameWorkLearn\bin\Debug\GameFrameWorkLearn.pdb
+F:\GitHub\GameFrameWorkLearn\GameFrameWorkLearn\obj\Debug\GameFrameWorkLearn.dll
+F:\GitHub\GameFrameWorkLearn\GameFrameWorkLearn\obj\Debug\GameFrameWorkLearn.pdb
