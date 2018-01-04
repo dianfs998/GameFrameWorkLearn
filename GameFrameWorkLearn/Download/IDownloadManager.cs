@@ -42,6 +42,59 @@ namespace GameFrameWork.Download
         /// </summary>
         float CurrentSpeed { get; }
 
+        /// <summary>
+        /// 下载开始事件
+        /// </summary>
         event EventHandler<DownloadStartEventArgs> DownloadStart;
+
+        /// <summary>
+        /// 下载更新事件
+        /// </summary>
+        event EventHandler<DownloadUpdateEventArgs> DownloadUpdate;
+
+        /// <summary>
+        /// 下载成功事件
+        /// </summary>
+        event EventHandler<DownloadSuccessEventArgs> DownloadSuccess;
+
+        /// <summary>
+        /// 下载失败事件
+        /// </summary>
+        event EventHandler<DownloadFailureEventArgs> DownloadFailure;
+
+        /// <summary>
+        /// 增加下载代理辅助器
+        /// </summary>
+        /// <param name="downloadAgentHelper">要增加的下载代理辅助器</param>
+        void AddDownloadAgentHelper(IDownloadAgentHelper downloadAgentHelper);
+
+        /// <summary>
+        /// 增加下载任务
+        /// </summary>
+        /// <param name="downloadPath">下载后存放路径</param>
+        /// <param name="downloadUri">原始下载地址</param>
+        /// <returns>新增下载任务的序列编号</returns>
+        int AddDownload(string downloadPath, string downloadUri);
+
+        /// <summary>
+        /// 增加下载任务
+        /// </summary>
+        /// <param name="downloadPath">下载后存放路径</param>
+        /// <param name="downloadUri">原始下载地址</param>
+        /// <param name="userData">用户自定义的数据</param>
+        /// <returns>新增下载任务的序列编号</returns>
+        int AddDownload(string downloadPath, string downloadUri, object userData);
+
+        /// <summary>
+        /// 移除下载任务
+        /// </summary>
+        /// <param name="serialID">要移除的下载任务序列编号</param>
+        /// <returns>下载任务是否移除成功</returns>
+        bool RemoveDownload(int serialID);
+
+        /// <summary>
+        /// 移除所有下载任务
+        /// </summary>
+        void RemoveAllDownload();
     }
 }
