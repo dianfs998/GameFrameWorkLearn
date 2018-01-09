@@ -17,7 +17,7 @@ namespace GameFrameWork.DataTable
         /// <summary>
         /// 获取数据表的类型
         /// </summary>
-        Type type { get; }
+        Type Type { get; }
 
         /// <summary>
         /// 获取数据表的行数

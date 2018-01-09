@@ -83,7 +83,7 @@ namespace GameFrameWork.DataTable
         /// <param name="dataRowType">数据表行的类型</param>
         /// <param name="name">数据表名称</param>
         /// <returns>是否存在数据表</returns>
-        bool HadDataTable(Type dataRowType, string name);
+        bool HasDataTable(Type dataRowType, string name);
 
         /// <summary>
         /// 获取数据表
@@ -183,6 +183,6 @@ namespace GameFrameWork.DataTable
         /// <param name="dataRowType">数据表行的类型</param>
         /// <param name="name">数据表名称</param>
         /// <returns>是否销毁数据表成功</returns>
-        bool destroyDataTable(Type dataRowType, string name);
+        bool DestroyDataTable(Type dataRowType, string name);
     }
 }
