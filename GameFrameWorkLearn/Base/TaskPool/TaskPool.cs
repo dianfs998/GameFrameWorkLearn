@@ -6,7 +6,7 @@ namespace GameFrameWork
     /// 任务池
     /// </summary>
     /// <typeparam name="T">任务类型</typeparam>
-    internal sealed class ITaskPool<T> where T : ITask
+    internal sealed class TaskPool<T> where T : ITask
     {
         private readonly Stack<ITaskAgent<T>> m_FreeAgents;
         private readonly LinkedList<ITaskAgent<T>> m_WorkingAgents;
@@ -15,7 +15,7 @@ namespace GameFrameWork
         /// <summary>
         /// 初始化任务池的新实例
         /// </summary>
-        public ITaskPool()
+        public TaskPool()
         {
             m_FreeAgents = new Stack<ITaskAgent<T>>();
             m_WorkingAgents = new LinkedList<ITaskAgent<T>>();
@@ -132,14 +132,53 @@ namespace GameFrameWork
         /// 增加任务
         /// </summary>
         /// <param name="task">要增加的任务</param>
-        public void AddTaks(T task)
+        public void AddTask(T task)
         {
             m_WaitingTasks.AddLast(task);
         }
 
-        public T RemoveTaks(int serialId)
+        /// <summary>
+        /// 移除任务
+        /// </summary>
+        /// <param name="serialId">要增加的任务</param>
+        /// <returns></returns>
+        public T RemoveTask(int serialId)
         {
+            foreach(T waitingTask in m_WaitingTasks)
+            {
+                if(waitingTask.SerialId == serialId)
+                {
+                    m_WaitingTasks.Remove(waitingTask);
+                    return waitingTask;
+                }
+            }
 
+            foreach(ITaskAgent<T> workingAgent in m_WorkingAgents)
+            {
+                if(workingAgent.Task.SerialId == serialId)
+                {
+                    workingAgent.Reset();
+                    m_FreeAgents.Push(workingAgent);
+                    m_WorkingAgents.Remove(workingAgent);
+                    return workingAgent.Task;
+                }
+            }
+
+            return default(T);
+        }
+
+        /// <summary>
+        /// 移除所有任务
+        /// </summary>
+        public void RemoveAllTasks()
+        {
+            m_WaitingTasks.Clear();
+            foreach(ITaskAgent<T> woringAgent in m_WorkingAgents)
+            {
+                woringAgent.Reset();
+                m_FreeAgents.Push(woringAgent);
+            }
+            m_WorkingAgents.Clear();
         }
     }
 }

@@ -45,6 +45,9 @@
     <Compile Include="Base\Log\LogLevel.cs" />
     <Compile Include="Base\ReferencePool\IReference.cs" />
     <Compile Include="Base\ReferencePool\ReferencePool.cs" />
+    <Compile Include="Base\TaskPool\ITask.cs" />
+    <Compile Include="Base\TaskPool\ITaskAgent.cs" />
+    <Compile Include="Base\TaskPool\TaskPool.cs" />
     <Compile Include="Base\Variable\GenericVariable.cs" />
     <Compile Include="Base\Variable\Variable.cs" />
     <Compile Include="DataNode\DataNodeManager.cs" />
@@ -62,15 +65,41 @@
     <Compile Include="DataTable\LoadDataTableFailureEventArgs.cs" />
     <Compile Include="DataTable\LoadDataTableSuccessEventArgs.cs" />
     <Compile Include="DataTable\LoadDataTableUpdateEventArgs.cs" />
+    <Compile Include="Debugger\DebuggerManager.cs" />
+    <Compile Include="Debugger\DebuggerManager.DebuggerWindowGroup.cs" />
+    <Compile Include="Debugger\IDebuggerManager.cs" />
+    <Compile Include="Debugger\IDebuggerWindow.cs" />
+    <Compile Include="Debugger\IDebuggerWindowGroup.cs" />
     <Compile Include="Download\DownloadAgentHelperCompleteEventArgs.cs" />
     <Compile Include="Download\DownloadAgentHelperErrorEventArgs.cs" />
     <Compile Include="Download\DownloadAgentHelperUpdateEventArgs.cs" />
     <Compile Include="Download\DownloadFailureEventArgs.cs" />
+    <Compile Include="Download\DownloadManager.cs" />
+    <Compile Include="Download\DownloadManager.DownloadAgent.cs" />
+    <Compile Include="Download\DownloadManager.DownloadCounter.cs" />
+    <Compile Include="Download\DownloadManager.DownloadCounter.DownloadCounterNode.cs" />
+    <Compile Include="Download\DownloadManager.DownloadTask.cs" />
+    <Compile Include="Download\DownloadManager.DownloadTaskStatus.cs" />
     <Compile Include="Download\DownloadStartEventArgs.cs" />
     <Compile Include="Download\DownloadSuccessEventArgs.cs" />
     <Compile Include="Download\DownloadUpdateEventArgs.cs" />
     <Compile Include="Download\IDownloadAgentHelper.cs" />
     <Compile Include="Download\IDownloadManager.cs" />
+    <Compile Include="Entity\EntityManager.ShowEntityInfo.cs" />
+    <Compile Include="Entity\EntityManager.EntityInstanceObject.cs" />
+    <Compile Include="Entity\EntityManager.EntityGroup.cs" />
+    <Compile Include="Entity\EntityManager.EntityInfo.cs" />
+    <Compile Include="Entity\EntityManager.EntityStatus.cs" />
+    <Compile Include="Entity\HideEntityCompleteEventArgs.cs" />
+    <Compile Include="Entity\IEntity.cs" />
+    <Compile Include="Entity\IEntityGroup.cs" />
+    <Compile Include="Entity\IEntityGroupHelper.cs" />
+    <Compile Include="Entity\IEntityHelper.cs" />
+    <Compile Include="Entity\IEntityManager.cs" />
+    <Compile Include="Entity\ShowEntityDependencyAssetEventArgs.cs" />
+    <Compile Include="Entity\ShowEntityFailureEventArgs.cs" />
+    <Compile Include="Entity\ShowEntitySuccessEventArgs.cs" />
+    <Compile Include="Entity\ShowEntityUpdateEventArgs.cs" />
     <Compile Include="ObjectPool\IObjectPoolManager.cs" />
     <Compile Include="ObjectPool\IObjectPool.cs" />
     <Compile Include="ObjectPool\ObjectBase.cs" />
@@ -134,9 +163,7 @@
   <ItemGroup>
     <Compile Include="Utility\Verifier.Crc32.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Debugger\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
