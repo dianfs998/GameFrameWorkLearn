@@ -73,7 +73,7 @@ namespace GameFrameWork.ObjectPool
         /// <summary>
         /// 获取或设置对象池的优先级
         /// </summary>
-        public abstract float Priority { get; set; }
+        public abstract int Priority { get; set; }
 
         /// <summary>
         /// 释放对象池中的可释放对象

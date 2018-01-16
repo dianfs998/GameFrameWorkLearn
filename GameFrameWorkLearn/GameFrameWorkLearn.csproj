@@ -85,6 +85,7 @@
     <Compile Include="Download\DownloadUpdateEventArgs.cs" />
     <Compile Include="Download\IDownloadAgentHelper.cs" />
     <Compile Include="Download\IDownloadManager.cs" />
+    <Compile Include="Entity\EntityManager.cs" />
     <Compile Include="Entity\EntityManager.ShowEntityInfo.cs" />
     <Compile Include="Entity\EntityManager.EntityInstanceObject.cs" />
     <Compile Include="Entity\EntityManager.EntityGroup.cs" />
@@ -105,6 +106,8 @@
     <Compile Include="ObjectPool\ObjectBase.cs" />
     <Compile Include="ObjectPool\ObjectInfo.cs" />
     <Compile Include="ObjectPool\ObjectPoolBase.cs" />
+    <Compile Include="ObjectPool\ObjectPoolManager.ObjectPool.cs" />
+    <Compile Include="ObjectPool\ObjectPoolManager.Object.cs" />
     <Compile Include="ObjectPool\ReleaseObjectFilterCallBack.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource\CheckVersionListResult.cs" />
